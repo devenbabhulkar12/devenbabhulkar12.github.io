@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Loan Eligibility Checker - Government Agricultural Loans</title>
+    <meta name="description" content="Check your eligibility for government agricultural loan schemes. Kisan Credit Card, PM Kisan Samman Nidhi, NABARD loans for farmers.">
+    <meta name="keywords" content="agricultural loans, farmer loans, kisan credit card, pm kisan, nabard, government schemes">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Agro Loan Eligibility Checker">
+    <meta property="og:description" content="Check your eligibility for government agricultural loan schemes">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌾</text></svg>">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --light-green: #4caf50;
+            --dark-green: #1b5e20;
+            --golden-yellow: #ffc107;
+            --light-gold: #ffecb3;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--golden-yellow);
+            color: var(--dark-gray);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: var(--light-gold);
+            transform: translateY(-3px);
+        }
+
+        .btn-green {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-green:hover {
+            background: var(--light-green);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--golden-yellow);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--golden-yellow);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--golden-yellow);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Schemes Section */
+        .schemes {
+            background-color: var(--light-gray);
+        }
+
+        .schemes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .scheme-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .scheme-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .scheme-icon {
+            background: var(--primary-green);
+            color: var(--white);
+            font-size: 2.5rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .scheme-content {
+            padding: 25px;
+        }
+
+        .scheme-content h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .scheme-content ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .scheme-content ul li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .scheme-content ul li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--light-green);
+        }
+
+        /* Eligibility Form */
+        .eligibility {
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            color: var(--white);
+        }
+
+        .eligibility .section-title {
+            color: var(--white);
+        }
+
+        .eligibility .section-title:after {
+            background: var(--golden-yellow);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            color: var(--dark-gray);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            border-color: var(--light-green);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .eligible {
+            background: #e8f5e9;
+            border-left: 5px solid var(--light-green);
+            color: var(--dark-gray);
+        }
+
+        .not-eligible {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            color: var(--dark-gray);
+        }
+
+        /* Resources Section */
+        .resources {
+            background-color: var(--light-gray);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--light-gray);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-green);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .footer-team {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .footer-team span {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--golden-yellow);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--golden-yellow);
+            color: var(--dark-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            border: none;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--light-gold);
+            transform: translateY(-3px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1100;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-green);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h2 {
+            color: var(--primary-green);
+            margin-bottom: 0;
+        }
+
+        .modal-body {
+            line-height: 1.8;
+        }
+
+        .modal-body ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+        }
+
+        .scheme-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .scheme-details div {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .scheme-details h4 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .scheme-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar .container {
+                position: relative;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-green);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                padding: 20px;
+            }
+
+            .footer-team {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-team span {
+                width: fit-content;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+
+            .hero {
+                height: 80vh;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .navbar, .back-to-top, .btn {
+                display: none !important;
+            }
+            
+            .hero {
+                background: none !important;
+                color: black !important;
+                height: auto !important;
+            }
+            
+            .modal {
+                position: static !important;
+                display: block !important;
+                background: white !important;
+            }
+            
+            .modal-content {
+                margin: 0 !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Agro<span>Loan</span> Checker</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#schemes">Schemes</a></li>
+                <li><a href="#eligibility">Eligibility</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Empowering Farmers with Easy Access to Government Agro Loans</h1>
+                <p>Check your eligibility and learn about the best agricultural loan schemes for your needs. Simple, fast, and completely free.</p>
+                <a href="#eligibility" class="btn btn-green">Check Your Eligibility Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schemes Section -->
+    <section class="schemes" id="schemes">
+        <div class="container">
+            <h2 class="section-title">Government Agro Loan Schemes</h2>
+            <div class="schemes-grid">
+                <!-- Scheme 1 -->
+                <div class="scheme-card">
+                    <div class="scheme-icon">
+                        <i class="fas fa-credit-card" aria-hidden="true"></i>
+                    </div>
+                    <div class="scheme-content">
+                        <h3>Kisan Credit Card (KCC)</h3>
+                        <p>Short-term credit for crop production with low interest rates and flexible repayment options.</p>
+                        <ul>
+                            <li>Low interest rates for farmers</li>
+                            <li>Flexible repayment options</li>
+                            <li>Covers crop production expenses</li>
+                            <li>Insurance coverage available</li>
+                            <li>Quick approval process</li>
+                        </ul>
+                        <button class="btn scheme-learn-more" data-scheme="kcc" type="button">Learn More</button>
+                    </div>
+                </div>
+                
+                <!-- Scheme 2 -->
+                <div class="scheme-card">
+                    <div class="scheme-icon">
+                        <i class="fas fa-hand-holding-usd" aria-hidden="true"></i>
+                    </div>
+                    <div class="scheme-content">
+                        <h3>PM Kisan Samman Nidhi Yojana</h3>
+                        <p>Direct income support for small and marginal farmers with no middlemen involved.</p>
+                        <ul>
+                            <li>₹6,000 per year in three installments</li>
+                            <li>Direct transfer to bank accounts</li>
+                            <li>No middlemen involved</li>
+                            <li>Simple online application</li>
+                            <li>Transparent process</li>
+                        </ul>
+                        <button class="btn scheme-learn-more" data-scheme="pm-kisan" type="button">Learn More</button>
+                    </div>
+                </div>
+                
+                <!-- Scheme 3 -->
+                <div class="scheme-card">
+                    <div class="scheme-icon">
+                        <i class="fas fa-tractor" aria-hidden="true"></i>
+                    </div>
+                    <div class="scheme-content">
+                        <h3>NABARD Agriculture Loan Scheme</h3>
+                        <p>Long-term finance for farm development, irrigation, and modern equipment.</p>
+                        <ul>
+                            <li>Long repayment periods</li>
+                            <li>Subsidized interest rates</li>
+                            <li>Modern farming equipment financing</li>
+                            <li>Irrigation system support</li>
+                            <li>Technical guidance</li>
+                        </ul>
+                        <button class="btn scheme-learn-more" data-scheme="nabard" type="button">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eligibility Form Section -->
+    <section class="eligibility" id="eligibility">
+        <div class="container">
+            <h2 class="section-title">Check Your Eligibility</h2>
+            <div class="form-container">
+                <form id="eligibility-form" novalidate>
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                        <small class="error-message" style="color: red; display: none;">Please enter your name</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">Age *</label>
+                        <input type="number" id="age" class="form-control" placeholder="Enter your age" min="18" max="100" required>
+                        <small class="error-message" style="color: red; display: none;">Please enter a valid age (18-100)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="land-area">Land Area (in acres) *</label>
+                        <input type="number" id="land-area" class="form-control" placeholder="Enter land area in acres" min="0" step="0.1" required>
+                        <small class="error-message" style="color: red; display: none;">Please enter valid land area</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="income">Annual Income (in ₹) *</label>
+                        <input type="number" id="income" class="form-control" placeholder="Enter your annual income" min="0" required>
+                        <small class="error-message" style="color: red; display: none;">Please enter valid income</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="crop-type">Type of Crop *</label>
+                        <select id="crop-type" class="form-control" required>
+                            <option value="" disabled selected>Select your primary crop</option>
+                            <option value="cereals">Cereals (Rice, Wheat, etc.)</option>
+                            <option value="pulses">Pulses</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="cash-crops">Cash Crops (Cotton, Sugarcane, etc.)</option>
+                            <option value="others">Others</option>
+                        </select>
+                        <small class="error-message" style="color: red; display: none;">Please select crop type</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loan-amount">Loan Amount Required (in ₹) *</label>
+                        <input type="number" id="loan-amount" class="form-control" placeholder="Enter required loan amount" min="0" required>
+                        <small class="error-message" style="color: red; display: none;">Please enter valid loan amount</small>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="reset" class="btn" type="button">Reset Form</button>
+                        <button type="submit" class="btn btn-green" type="submit" id="submit-btn">
+                            <span id="submit-text">Check Eligibility</span>
+                            <span id="submit-loading" style="display: none;" class="loading"></span>
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="result" class="result" role="alert" aria-live="polite"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <h2 class="section-title">Farmer Resources & Help</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                    </div>
+                    <h3>How to Apply</h3>
+                    <p>Step-by-step guide to applying for government agricultural loans, including required documents and application process.</p>
+                    <button class="btn learn-more-btn" data-resource="how-to-apply" type="button">Learn More</button>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-list-check" aria-hidden="true"></i>
+                    </div>
+                    <h3>Documents Required</h3>
+                    <p>Complete checklist of documents needed for different agricultural loan schemes with detailed explanations.</p>
+                    <button class="btn learn-more-btn" data-resource="documents-required" type="button">View Checklist</button>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                    </div>
+                    <h3>Find Nearest Banks</h3>
+                    <p>Locate the nearest banks and agricultural offices where you can apply for loans with contact information.</p>
+                    <button class="btn learn-more-btn" data-resource="find-banks" type="button">Find Locations</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>This website is created to assist farmers in understanding and accessing agricultural loan schemes with ease. We aim to simplify the process and empower India's farming community.</p>
+                    <p>Our mission is to bridge the information gap between government schemes and farmers, ensuring that every farmer can benefit from the financial support available to them.</p>
+                    <p>We believe that by providing clear, accessible information and easy eligibility checking, we can contribute to the prosperity of our agricultural sector and support the backbone of our nation.</p>
+                    <div class="stats" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;">
+                        <div style="text-align: center;">
+                            <h3 style="color: var(--primary-green); font-size: 2rem; margin-bottom: 5px;">10,000+</h3>
+                            <p style="margin: 0;">Farmers Helped</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <h3 style="color: var(--primary-green); font-size: 2rem; margin-bottom: 5px;">15+</h3>
+                            <p style="margin: 0;">Loan Schemes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="Farmers working together in field" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@agroloanchecker.gov.in</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Helpline</h3>
+                            <p>1800-123-4567 (Toll Free)</p>
+                            <p>Mon-Sun: 8:00 AM - 8:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Address</h3>
+                            <p>Ministry of Agriculture & Farmers Welfare</p>
+                            <p>Krishi Bhavan, New Delhi - 110001</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Office Hours</h3>
+                            <p>Monday to Friday: 9:30 AM - 6:00 PM</p>
+                            <p>Saturday: 10:00 AM - 2:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Your Phone Number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-green">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <h3>Agro Loan Eligibility Checker</h3>
+                <p>Empowering farmers with easy access to government agricultural loan schemes</p>
+                
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <div class="footer-team">
+                    <span>Atharv Thor</span>
+                    <span>Deven Babhulkar</span>
+                    <span>Shivam Yerekar</span>
+                    <span>Deepika Chauhan</span>
+                    <span>Barkha Singh Thakur</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Agro Loan Eligibility Checker. All rights reserved. | Designed for Farmers' Welfare</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scheme Detail Modal -->
+    <div id="scheme-modal" class="modal" role="dialog" aria-labelledby="scheme-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-modal" id="close-scheme-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2 id="scheme-modal-title">Scheme Details</h2>
+            </div>
+            <div class="modal-body" id="scheme-modal-body">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Resource Detail Modal -->
+    <div id="resource-modal" class="modal" role="dialog" aria-labelledby="resource-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-modal" id="close-resource-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2 id="resource-modal-title">Resource Details</h2>
+            </div>
+            <div class="modal-body" id="resource-modal-body">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced JavaScript for GitHub Pages Hosting
+        (function() {
+            'use strict';
+            
+            // Debug logging
+            console.log('Agro Loan Checker - Initializing...');
+            
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            function init() {
+                console.log('Website initialized successfully');
+                
+                // Initialize all components
+                initNavigation();
+                initBackToTop();
+                initEligibilityForm();
+                initModals();
+                initSmoothScrolling();
+                initContactForm();
+                
+                // Add loaded class for any potential CSS animations
+                document.body.classList.add('loaded');
+            }
+
+            function initNavigation() {
+                const hamburger = document.getElementById('hamburger');
+                const navLinks = document.getElementById('nav-links');
+                
+                if (hamburger && navLinks) {
+                    hamburger.addEventListener('click', function() {
+                        navLinks.classList.toggle('active');
+                        this.setAttribute('aria-expanded', 
+                            this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+                        );
+                    });
+                }
+
+                // Close mobile menu when clicking on links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navLinks.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+
+            function initBackToTop() {
+                const backToTop = document.getElementById('back-to-top');
+                
+                if (backToTop) {
+                    window.addEventListener('scroll', function() {
+                        if (window.pageYOffset > 300) {
+                            backToTop.classList.add('active');
+                        } else {
+                            backToTop.classList.remove('active');
+                        }
+                    });
+
+                    backToTop.addEventListener('click', function() {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    });
+                }
+            }
+
+            function initEligibilityForm() {
+                const eligibilityForm = document.getElementById('eligibility-form');
+                const resultDiv = document.getElementById('result');
+                const submitBtn = document.getElementById('submit-btn');
+                const submitText = document.getElementById('submit-text');
+                const submitLoading = document.getElementById('submit-loading');
+                
+                if (eligibilityForm && resultDiv && submitBtn) {
+                    eligibilityForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        console.log('Eligibility form submitted');
+                        
+                        // Show loading state
+                        submitText.style.display = 'none';
+                        submitLoading.style.display = 'inline-block';
+                        submitBtn.disabled = true;
+                        
+                        // Simulate processing delay
+                        setTimeout(processFormSubmission, 1000);
+                    });
+                }
+
+                function processFormSubmission() {
+                    try {
+                        // Get form values with validation
+                        const name = document.getElementById('name').value.trim();
+                        const age = parseInt(document.getElementById('age').value) || 0;
+                        const landArea = parseFloat(document.getElementById('land-area').value) || 0;
+                        const income = parseInt(document.getElementById('income').value) || 0;
+                        const cropType = document.getElementById('crop-type').value;
+                        const loanAmount = parseInt(document.getElementById('loan-amount').value) || 0;
+                        
+                        // Hide error messages
+                        document.querySelectorAll('.error-message').forEach(el => {
+                            el.style.display = 'none';
+                        });
+
+                        // Validate required fields
+                        let isValid = true;
+                        
+                        if (!name) {
+                            showError('name', 'Please enter your name');
+                            isValid = false;
+                        }
+                        
+                        if (!age || age < 18 || age > 100) {
+                            showError('age', 'Please enter a valid age (18-100)');
+                            isValid = false;
+                        }
+                        
+                        if (!landArea || landArea < 0) {
+                            showError('land-area', 'Please enter valid land area');
+                            isValid = false;
+                        }
+                        
+                        if (!income || income < 0) {
+                            showError('income', 'Please enter valid income');
+                            isValid = false;
+                        }
+                        
+                        if (!cropType) {
+                            showError('crop-type', 'Please select crop type');
+                            isValid = false;
+                        }
+                        
+                        if (!loanAmount || loanAmount < 0) {
+                            showError('loan-amount', 'Please enter valid loan amount');
+                            isValid = false;
+                        }
+
+                        if (!isValid) {
+                            resetSubmitButton();
+                            return;
+                        }
+
+                        // Eligibility logic
+                        const eligibleSchemes = checkEligibility(age, landArea, income, loanAmount);
+                        
+                        // Display result
+                        if (eligibleSchemes.length > 0) {
+                            showResult('success', name, eligibleSchemes);
+                        } else {
+                            showResult('not-eligible', name);
+                        }
+                        
+                    } catch (error) {
+                        console.error('Form processing error:', error);
+                        showResult('error', 'An error occurred. Please try again.');
+                    } finally {
+                        resetSubmitButton();
+                    }
+                }
+
+                function showError(fieldId, message) {
+                    const field = document.getElementById(fieldId);
+                    const errorElement = field.parentNode.querySelector('.error-message');
+                    if (errorElement) {
+                        errorElement.textContent = message;
+                        errorElement.style.display = 'block';
+                    }
+                }
+
+                function checkEligibility(age, landArea, income, loanAmount) {
+                    const eligibleSchemes = [];
+                    
+                    // Kisan Credit Card Eligibility
+                    if (age >= 18 && age <= 65 && landArea >= 0.5 && income <= 800000) {
+                        eligibleSchemes.push({
+                            name: "Kisan Credit Card (KCC)",
+                            description: "Short-term credit for crop production",
+                            benefits: ["Low interest rates", "Flexible repayment", "Crop insurance"]
+                        });
+                    }
+                    
+                    // PM Kisan Eligibility
+                    if (age >= 18 && landArea <= 2 && income <= 300000) {
+                        eligibleSchemes.push({
+                            name: "PM Kisan Samman Nidhi Yojana",
+                            description: "Direct income support for farmers",
+                            benefits: ["₹6,000 per year", "Direct bank transfer", "No middlemen"]
+                        });
+                    }
+                    
+                    // NABARD Eligibility
+                    if (age >= 21 && landArea >= 1 && loanAmount <= 5000000) {
+                        eligibleSchemes.push({
+                            name: "NABARD Agriculture Loan Scheme",
+                            description: "Long-term finance for farm development",
+                            benefits: ["Subsidized rates", "Long repayment", "Equipment financing"]
+                        });
+                    }
+                    
+                    return eligibleSchemes;
+                }
+
+                function showResult(type, name, schemes = []) {
+                    const resultDiv = document.getElementById('result');
+                    
+                    if (type === 'success') {
+                        resultDiv.className = "result eligible";
+                        resultDiv.innerHTML = `
+                            <h3>🎉 Congratulations, ${name}!</h3>
+                            <p>Based on your information, you are eligible for the following schemes:</p>
+                            <div style="margin: 20px 0;">
+                                ${schemes.map(scheme => `
+                                    <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--light-green);">
+                                        <h4 style="color: var(--primary-green); margin-bottom: 8px;">${scheme.name}</h4>
+                                        <p style="margin-bottom: 8px;">${scheme.description}</p>
+                                        <ul style="margin: 0;">
+                                            ${scheme.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <p><strong>Next Steps:</strong> Visit your nearest bank or agricultural office with the required documents to proceed with your application.</p>
+                        `;
+                    } else if (type === 'not-eligible') {
+                        resultDiv.className = "result not-eligible";
+                        resultDiv.innerHTML = `
+                            <h3>Thank you for your submission, ${name}.</h3>
+                            <p>Based on the information provided, you may not be eligible for the major government agricultural loan schemes at this time.</p>
+                            <p><strong>We recommend:</strong></p>
+                            <ul>
+                                <li>Visiting your local agricultural office for personalized guidance</li>
+                                <li>Exploring state-specific farmer welfare schemes</li>
+                                <li>Consulting with bank representatives about alternative options</li>
+                            </ul>
+                        `;
+                    } else {
+                        resultDiv.className = "result not-eligible";
+                        resultDiv.innerHTML = `
+                            <h3>⚠️ Error</h3>
+                            <p>${name}</p>
+                        `;
+                    }
+                    
+                    resultDiv.style.display = 'block';
+                    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // Track form submission (analytics would go here)
+                    console.log('Eligibility checked', { type, name, schemes: schemes.length });
+                }
+
+                function resetSubmitButton() {
+                    submitText.style.display = 'inline-block';
+                    submitLoading.style.display = 'none';
+                    submitBtn.disabled = false;
+                }
+            }
+
+            function initModals() {
+                // Scheme Modal
+                const schemeModal = document.getElementById('scheme-modal');
+                const schemeModalTitle = document.getElementById('scheme-modal-title');
+                const schemeModalBody = document.getElementById('scheme-modal-body');
+                const schemeButtons = document.querySelectorAll('.scheme-learn-more');
+
+                // Resource Modal
+                const resourceModal = document.getElementById('resource-modal');
+                const resourceModalTitle = document.getElementById('resource-modal-title');
+                const resourceModalBody = document.getElementById('resource-modal-body');
+                const resourceButtons = document.querySelectorAll('.learn-more-btn');
+
+                // Content data
+                const schemeContent = {
+                    'kcc': {
+                        title: 'Kisan Credit Card (KCC) Scheme',
+                        content: `
+                            <h3>🌾 Overview</h3>
+                            <p>The Kisan Credit Card (KCC) scheme is a government initiative that provides farmers with timely access to credit for their agricultural needs. It offers a flexible and simplified credit delivery system with attractive interest rates.</p>
+                            
+                            <div class="scheme-details">
+                                <div>
+                                    <h4>✅ Key Features</h4>
+                                    <ul>
+                                        <li>Credit limit based on land holding and cropping pattern</li>
+                                        <li>Flexible repayment period up to 5 years</li>
+                                        <li>Interest rate as low as 4% per annum</li>
+                                        <li>Covers short-term credit needs for crop production</li>
+                                        <li>Insurance coverage linked with the card</li>
+                                        <li>One-time documentation for multiple withdrawals</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>🎯 Eligibility Criteria</h4>
+                                    <ul>
+                                        <li>All farmers - individual and joint borrowers</li>
+                                        <li>Owner cultivators</li>
+                                        <li>Tenant farmers, oral lessees, and sharecroppers</li>
+                                        <li>Self Help Groups (SHGs) or Joint Liability Groups (JLGs)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>💰 Loan Amount</h4>
+                            <p>The credit limit is decided based on:</p>
+                            <ul>
+                                <li>Cost of cultivation for the crop(s) grown</li>
+                                <li>Cost of maintenance of farm assets</li>
+                                <li>Cost of post-harvest expenses</li>
+                                <li>Consumption requirements of the farmer</li>
+                                <li>Working capital for maintenance of farm assets</li>
+                            </ul>
+                            
+                            <h4>📋 Documents Required</h4>
+                            <ul>
+                                <li>Application form with passport-sized photograph</li>
+                                <li>Proof of identity (Aadhaar Card, Voter ID, etc.)</li>
+                                <li>Proof of residence</li>
+                                <li>Land ownership documents or cultivation rights</li>
+                                <li>Bank account details</li>
+                            </ul>
+                            
+                            <div style="background: var(--light-gold); padding: 15px; border-radius: 8px; margin: 20px 0;">
+                                <h4>🚀 How to Apply</h4>
+                                <p>Farmers can apply for KCC through:</p>
+                                <ul>
+                                    <li>Local commercial banks, regional rural banks, or cooperative banks</li>
+                                    <li>Online application through bank websites</li>
+                                    <li>Common Service Centers (CSCs)</li>
+                                    <li>Direct approach to bank branches with required documents</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>📞 Contact:</strong> For more information, visit your nearest bank branch or call the Kisan Call Center at <strong>1800-180-1551</strong>.</p>
+                        `
+                    },
+                    'pm-kisan': {
+                        title: 'PM Kisan Samman Nidhi Yojana',
+                        content: `
+                            <h3>🌾 Overview</h3>
+                            <p>Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) is a Central Sector Scheme with 100% funding from the Government of India. The scheme aims to provide financial support to landholding farmers' families to supplement their financial needs.</p>
+                            
+                            <div class="scheme-details">
+                                <div>
+                                    <h4>✅ Key Benefits</h4>
+                                    <ul>
+                                        <li>Financial benefit of ₹6,000 per year</li>
+                                        <li>Amount transferred in three equal installments of ₹2,000 each</li>
+                                        <li>Direct transfer to beneficiary's bank account</li>
+                                        <li>No middlemen involved in the process</li>
+                                        <li>Simple and transparent application process</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>🎯 Eligibility Criteria</h4>
+                                    <ul>
+                                        <li>Small and marginal farmer families</li>
+                                        <li>Families that own cultivable land</li>
+                                        <li>All landholding farmers' families</li>
+                                    </ul>
+                                    <h4>❌ Exclusions</h4>
+                                    <ul>
+                                        <li>Institutional landholders</li>
+                                        <li>Former and present holders of constitutional posts</li>
+                                        <li>Certain categories of professional taxpayers</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>📝 Registration Process</h4>
+                            <p>Farmers can register for PM-KISAN through:</p>
+                            <ul>
+                                <li>Common Service Centers (CSCs) - for a nominal fee</li>
+                                <li>State Government officials</li>
+                                <li>Online self-registration through the PM-KISAN portal</li>
+                            </ul>
+                            
+                            <h4>📋 Documents Required</h4>
+                            <ul>
+                                <li>Aadhaar Card (mandatory)</li>
+                                <li>Bank account details</li>
+                                <li>Land ownership documents</li>
+                                <li>Mobile number linked with Aadhaar</li>
+                            </ul>
+                            
+                            <h4>💰 Payment Schedule</h4>
+                            <p>The financial benefit is transferred in three installments:</p>
+                            <ul>
+                                <li>1st Installment: April to July</li>
+                                <li>2nd Installment: August to November</li>
+                                <li>3rd Installment: December to March</li>
+                            </ul>
+                            
+                            <div style="background: var(--light-gold); padding: 15px; border-radius: 8px; margin: 20px 0;">
+                                <h4>🔍 Checking Payment Status</h4>
+                                <p>Farmers can check their payment status through:</p>
+                                <ul>
+                                    <li>PM-KISAN official website (pmkisan.gov.in)</li>
+                                    <li>PM-KISAN mobile app</li>
+                                    <li>Helpline number: 155261 / 011-23381092</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>💡 Note:</strong> Keep your Aadhaar and bank details updated in the PM-KISAN portal to avoid any disruption in payment.</p>
+                        `
+                    },
+                    'nabard': {
+                        title: 'NABARD Agriculture Loan Scheme',
+                        content: `
+                            <h3>🌾 Overview</h3>
+                            <p>The National Bank for Agriculture and Rural Development (NABARD) offers various loan schemes for agricultural development. These schemes focus on providing long-term finance for farm development, irrigation, and agricultural infrastructure.</p>
+                            
+                            <div class="scheme-details">
+                                <div>
+                                    <h4>✅ Key Features</h4>
+                                    <ul>
+                                        <li>Long-term loans for agricultural development</li>
+                                        <li>Subsidized interest rates</li>
+                                        <li>Flexible repayment options</li>
+                                        <li>Technical guidance and support</li>
+                                        <li>Focus on sustainable agricultural practices</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>🎯 Eligibility</h4>
+                                    <ul>
+                                        <li>Individual farmers</li>
+                                        <li>Groups of farmers</li>
+                                        <li>Farmer Producer Organizations (FPOs)</li>
+                                        <li>Agricultural entrepreneurs</li>
+                                        <li>Agri-based startups</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>📊 Types of Loans Available</h4>
+                            <ul>
+                                <li><strong>Investment Credit:</strong> For creation of capital assets in agriculture and allied sectors</li>
+                                <li><strong>Irrigation Infrastructure:</strong> For development of irrigation systems</li>
+                                <li><strong>Farm Mechanization:</strong> For purchase of agricultural machinery and equipment</li>
+                                <li><strong>Agri-Infrastructure:</strong> For building storage, processing, and marketing facilities</li>
+                                <li><strong>Dairy and Animal Husbandry:</strong> For livestock development</li>
+                            </ul>
+                            
+                            <h4>💰 Interest Rates and Subsidies</h4>
+                            <p>NABARD offers loans at concessional interest rates with various subsidies:</p>
+                            <ul>
+                                <li>Interest rates as low as 3% for certain categories</li>
+                                <li>Interest subvention for timely repayment</li>
+                                <li>Capital investment subsidies for specific projects</li>
+                                <li>Credit guarantee for eligible borrowers</li>
+                            </ul>
+                            
+                            <h4>📝 Application Process</h4>
+                            <p>Farmers can apply for NABARD loans through:</p>
+                            <ul>
+                                <li>Commercial banks</li>
+                                <li>Regional Rural Banks (RRBs)</li>
+                                <li>Cooperative banks</li>
+                                <li>State Cooperative Agriculture and Rural Development Banks (SCARDBs)</li>
+                                <li>Direct application to NABARD for specific schemes</li>
+                            </ul>
+                            
+                            <div style="background: var(--light-gold); padding: 15px; border-radius: 8px; margin: 20px 0;">
+                                <h4>🚀 Special Initiatives</h4>
+                                <ul>
+                                    <li><strong>Pradhan Mantri Krishi Sinchai Yojana (PMKSY):</strong> For irrigation projects</li>
+                                    <li><strong>Agriculture Marketing Infrastructure (AMI):</strong> For market infrastructure development</li>
+                                    <li><strong>Food Processing Fund:</strong> For food processing units</li>
+                                    <li><strong>Rural Godown Scheme:</strong> For storage infrastructure</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>📞 Contact:</strong> For more information, visit the NABARD website (nabard.org) or contact your nearest bank branch.</p>
+                        `
+                    }
+                };
+
+                const resourceContent = {
+                    'how-to-apply': {
+                        title: 'How to Apply for Agricultural Loans',
+                        content: `
+                            <h3>📋 Step-by-Step Application Process</h3>
+                            <p>Follow these steps to apply for government agricultural loan schemes:</p>
+                            <ol>
+                                <li><strong>Identify the Right Scheme:</strong> Determine which loan scheme best fits your needs based on your farming requirements and eligibility.</li>
+                                <li><strong>Gather Required Documents:</strong> Collect all necessary documents including identity proof, address proof, land ownership documents, and income certificates.</li>
+                                <li><strong>Visit Your Nearest Bank:</strong> Approach any nationalized bank, regional rural bank, or cooperative bank that participates in agricultural loan schemes.</li>
+                                <li><strong>Fill Out the Application Form:</strong> Complete the loan application form with accurate information about your farming activities and financial needs.</li>
+                                <li><strong>Submit Documents:</strong> Submit the completed application form along with all required documents to the bank representative.</li>
+                                <li><strong>Verification Process:</strong> Bank officials will verify your documents and may conduct a field visit to assess your farming operations.</li>
+                                <li><strong>Loan Approval:</strong> Once approved, the loan amount will be disbursed to your bank account.</li>
+                            </ol>
+                            
+                            <div class="scheme-details">
+                                <div>
+                                    <h4>💻 Online Application Options</h4>
+                                    <p>Many agricultural loan schemes now offer online application through:</p>
+                                    <ul>
+                                        <li>Bank websites and mobile apps</li>
+                                        <li>Government portals like PM-KISAN and NABARD</li>
+                                        <li>Common Service Centers (CSCs) in rural areas</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>⏱️ Processing Time</h4>
+                                    <ul>
+                                        <li>Kisan Credit Card: 2-3 weeks</li>
+                                        <li>PM Kisan: 4-6 weeks</li>
+                                        <li>NABARD Loans: 4-8 weeks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <p><strong>📞 For assistance with the application process, you can contact the agricultural helpline at 1800-180-1551.</strong></p>
+                        `
+                    },
+                    'documents-required': {
+                        title: 'Documents Required for Agricultural Loans',
+                        content: `
+                            <h3>📄 Essential Documents Checklist</h3>
+                            <p>Make sure you have the following documents ready when applying for agricultural loans:</p>
+                            
+                            <div class="scheme-details">
+                                <div>
+                                    <h4>🆔 Identity and Address Proof</h4>
+                                    <ul>
+                                        <li>Aadhaar Card</li>
+                                        <li>Voter ID Card</li>
+                                        <li>PAN Card</li>
+                                        <li>Driving License</li>
+                                        <li>Passport (if available)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>🏠 Land and Farming Documents</h4>
+                                    <ul>
+                                        <li>Land ownership documents (7/12 extract or equivalent)</li>
+                                        <li>Land possession certificate</li>
+                                        <li>Record of Rights (ROR)</li>
+                                        <li>Soil testing report (if available)</li>
+                                        <li>Crop cultivation plan</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="scheme-details">
+                                <div>
+                                    <h4>💰 Financial Documents</h4>
+                                    <ul>
+                                        <li>Bank account statement for last 6 months</li>
+                                        <li>Income certificate</li>
+                                        <li>Last 2 years income tax returns (if applicable)</li>
+                                        <li>Existing loan details (if any)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>📷 Photographs</h4>
+                                    <ul>
+                                        <li>2 recent passport-sized photographs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>📋 Additional Documents for Specific Schemes</h4>
+                            <p><strong>For Kisan Credit Card (KCC):</strong></p>
+                            <ul>
+                                <li>KCC application form</li>
+                                <li>Passport-sized photograph</li>
+                                <li>Land records</li>
+                            </ul>
+                            
+                            <p><strong>For PM Kisan Samman Nidhi:</strong></p>
+                            <ul>
+                                <li>PM-KISAN registration form</li>
+                                <li>Bank account details</li>
+                                <li>Aadhaar number</li>
+                            </ul>
+                            
+                            <div style="background: var(--light-gold); padding: 15px; border-radius: 8px; margin: 20px 0;">
+                                <p><strong>💡 Note:</strong> Document requirements may vary slightly between different banks and loan schemes. Always carry original documents for verification.</p>
+                            </div>
+                        `
+                    },
+                    'find-banks': {
+                        title: 'Find Nearest Banks and Agricultural Offices',
+                        content: `
+                            <h3>📍 Locate Service Providers Near You</h3>
+                            <p>You can apply for agricultural loans at the following types of financial institutions:</p>
+                            
+                            <div class="scheme-details">
+                                <div>
+                                    <h4>🏦 Types of Banks Offering Agricultural Loans</h4>
+                                    <ul>
+                                        <li><strong>Nationalized Banks:</strong> State Bank of India, Punjab National Bank, Bank of Baroda, etc.</li>
+                                        <li><strong>Regional Rural Banks (RRBs):</strong> Specially focused on rural and agricultural financing</li>
+                                        <li><strong>Cooperative Banks:</strong> District Central Cooperative Banks, State Cooperative Banks</li>
+                                        <li><strong>Private Banks:</strong> Some private banks also offer agricultural loan products</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>🏢 Agricultural Development Offices</h4>
+                                    <p>Visit these government offices for guidance and support:</p>
+                                    <ul>
+                                        <li>District Agricultural Office</li>
+                                        <li>Krishi Vigyan Kendra (KVK)</li>
+                                        <li>Block Development Office</li>
+                                        <li>Agriculture Technology Management Agency (ATMA)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>🌐 Online Resources</h4>
+                            <p>Use these online portals to find service providers:</p>
+                            <ul>
+                                <li><a href="https://pmkisan.gov.in" target="_blank" style="color: var(--primary-green);">PM-KISAN Portal</a> - For direct benefit transfer schemes</li>
+                                <li><a href="https://nabard.org" target="_blank" style="color: var(--primary-green);">NABARD Website</a> - For information on various agricultural schemes</li>
+                                <li>Bank locators on individual bank websites</li>
+                            </ul>
+                            
+                            <div style="background: var(--light-gold); padding: 15px; border-radius: 8px; margin: 20px 0;">
+                                <h4>📞 Helpline Numbers</h4>
+                                <p>For assistance in locating the nearest service provider:</p>
+                                <ul>
+                                    <li><strong>Kisan Call Center:</strong> 1800-180-1551</li>
+                                    <li><strong>Agricultural Helpline:</strong> 1551 (Toll-free from BSNL/MTNL phones)</li>
+                                    <li><strong>PM-KISAN Helpline:</strong> 011-23381092, 011-23382401</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>💡 Tip:</strong> You can also visit your local Common Service Center (CSC) for assistance with online applications and information.</p>
+                        `
+                    }
+                };
+
+                // Add event listeners to scheme buttons
+                schemeButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const schemeId = this.getAttribute('data-scheme');
+                        console.log('Scheme button clicked:', schemeId);
+                        if (schemeContent[schemeId]) {
+                            openModal(schemeModal, schemeModalTitle, schemeModalBody, schemeContent[schemeId]);
+                        }
+                    });
+                });
+
+                // Add event listeners to resource buttons
+                resourceButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const resourceId = this.getAttribute('data-resource');
+                        console.log('Resource button clicked:', resourceId);
+                        if (resourceContent[resourceId]) {
+                            openModal(resourceModal, resourceModalTitle, resourceModalBody, resourceContent[resourceId]);
+                        }
+                    });
+                });
+
+                // Close modal functions
+                document.getElementById('close-scheme-modal').addEventListener('click', () => {
+                    closeModal(schemeModal);
+                });
+
+                document.getElementById('close-resource-modal').addEventListener('click', () => {
+                    closeModal(resourceModal);
+                });
+
+                // Close on outside click
+                window.addEventListener('click', (e) => {
+                    if (e.target === schemeModal) closeModal(schemeModal);
+                    if (e.target === resourceModal) closeModal(resourceModal);
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closeModal(schemeModal);
+                        closeModal(resourceModal);
+                    }
+                });
+
+                function openModal(modal, titleEl, bodyEl, content) {
+                    titleEl.textContent = content.title;
+                    bodyEl.innerHTML = content.content;
+                    modal.style.display = 'block';
+                    modal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Focus management for accessibility
+                    const closeBtn = modal.querySelector('.close-modal');
+                    if (closeBtn) closeBtn.focus();
+                }
+
+                function closeModal(modal) {
+                    modal.style.display = 'none';
+                    modal.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            function initSmoothScrolling() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            const offsetTop = targetElement.offsetTop - 70;
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Update URL without page reload
+                            history.pushState(null, null, targetId);
+                        }
+                    });
+                });
+            }
+
+            function initContactForm() {
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        alert('Thank you for your message! We will get back to you soon.');
+                        this.reset();
+                    });
+                }
+            }
+
+            // Error handling for images
+            document.addEventListener('error', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    console.warn('Image failed to load:', e.target.src);
+                    e.target.alt = 'Image not available';
+                }
+            }, true);
+
+        })();
+
+        // Global error handler
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+        });
+
+        console.log('Agro Loan Checker - Ready!');
+    </script>
+</body>
+</html>
